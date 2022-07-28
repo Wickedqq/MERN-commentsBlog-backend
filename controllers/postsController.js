@@ -41,20 +41,6 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-export const getOnePost = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const post = await postScheme.findById(postId);
-
-    res.send(post);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      messege: 'unable to load post',
-    });
-  }
-};
-
 export const deletePost = async (req, res) => {
   try {
     const postId = req.params.id;

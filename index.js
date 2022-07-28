@@ -9,13 +9,7 @@ import { handleValidationErr } from './utils/handleValidationErr.js';
 
 import tokenCheker from './utils/tokenChecker.js';
 import { register, login, getMe } from './controllers/userController.js';
-import {
-  createPost,
-  deletePost,
-  getAllPosts,
-  getOnePost,
-  updatePost,
-} from './controllers/postsController.js';
+import { createPost, deletePost, getAllPosts, updatePost } from './controllers/postsController.js';
 
 dotenv.config();
 const app = express();
@@ -52,7 +46,6 @@ app.post('/authicate/login', loginValidator, handleValidationErr, login);
 app.get('/me', tokenCheker, getMe);
 
 app.get('/posts', getAllPosts);
-// app.get('/posts/:id', getOnePost);
 app.post('/posts', tokenCheker, postValidator, handleValidationErr, createPost);
 app.patch('/posts/:id', tokenCheker, postValidator, handleValidationErr, updatePost);
 app.delete('/posts/:id', tokenCheker, deletePost);
@@ -63,7 +56,7 @@ app.post('/uploads', imageUploader.single('image'), (req, res) => {
   });
 });
 
-app.listen(PORT, (err) => {
+app.listen(PORT || 3030, (err) => {
   if (err) {
     console.log("server isn't working");
     return console.log(err);

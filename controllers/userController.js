@@ -90,11 +90,15 @@ export const login = async (req, res) => {
 };
 export const getMe = async (req, res) => {
   const loggedUser = await userScheme.findById(req.userId);
-
-  const { password, __v, ...rest } = loggedUser._doc;
-
+  if (loggedUser) {
+    const { password, __v, ...rest } = loggedUser._doc;
+    res.json({
+      ...rest,
+      status: 200,
+    });
+    return;
+  }
   res.json({
-    ...rest,
-    status: 200,
+    status: 400,
   });
 };
